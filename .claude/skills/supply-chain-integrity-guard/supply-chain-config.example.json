@@ -1,0 +1,10 @@
+{
+  "_comment": "プロジェクト導入時に supply-chain-config.json としてコピーし、値を編集して使う。このファイル自体は編集しない。",
+  "sbom_required": false,
+  "sbom_format": null,
+  "license_policy": {
+    "denied": [],
+    "requires_approval": ["GPL-3.0", "AGPL-3.0"]
+  },
+  "internal_package_scopes": []
+}
