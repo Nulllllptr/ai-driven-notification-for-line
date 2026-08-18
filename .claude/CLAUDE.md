@@ -44,10 +44,21 @@
 | tech-debt-ledger-guard | skill | 技術的負債の記録・分類・棚卸し(TECH_DEBT_LEDGER.md) |
 | git-workflow | rule | feature/fixブランチ運用、developへのマージコミット保持 |
 
+## コマンド索引
+
+`.claude/commands/`配下の開発者が明示的に起動するコマンド。ユニット索引のskill/ruleと異なり、
+条件に応じた自動発火はしない。
+
+| コマンド | 役割 |
+|---|---|
+| /goal | 完了条件を満たすまで、実装→component-test-guard→code-review-guardによる自己評価→修正を
+  ループする。停止条件(3回連続失敗・通算5回・200行超過・仕様の曖昧さ・シークレット/認可の欠落)に
+  該当したら止まる |
+
 ## テンプレートバージョン
 
 - テンプレートID: ai-driven-dev-template
-- version: 2.3.0(ユニット追加ごとに更新する。開発者からの直接指示により、根拠のない試行的実装の開示
+- version: 2.4.0(ユニット追加ごとに更新する。開発者からの直接指示により、根拠のない試行的実装の開示
   (ai-output-verification-guard)、リトライループでのエラー回避禁止・実装後の静的/境界値テスト必須化
   (implementation-guard)、Gitブランチ戦略(git-workflow.md)を追加。以降、随時コードレビューを担う
   code-review-guardを追加し、system-overview-guardをdesign-doc-guardへ改称・拡張して鳥瞰図設計書・
@@ -55,5 +66,6 @@
   docs/配下(鳥瞰図1ファイル+システムフォルダ内の採番ファイル)へ再配置し、コンポーネント仕様書を
   実装前の必須ゲート化(dev-method-guardの手法選択より優先)。開発方針表はプロジェクト全体で
   重複させないためBIRDSEYE_DESIGN.md側に集約。component-test-guardを追加し、条件網羅・機能・
-  非機能要件テストの成果物を仕様書と同フォルダに保管する運用を追加)
+  非機能要件テストの成果物を仕様書と同フォルダに保管する運用を追加。以降、自走ループ用の
+  /goalコマンドを追加し、既存skillの呼び出し順序をオーケストレーションする形で導入した)
 - 元テンプレート更新の追従は手動。差分確認が必要な場合はversion行を比較する。
