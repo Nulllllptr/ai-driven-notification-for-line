@@ -54,11 +54,13 @@
 | /goal | 完了条件を満たすまで、実装→component-test-guard→code-review-guardによる自己評価→修正を
   ループする。停止条件(3回連続失敗・通算5回・200行超過・仕様の曖昧さ・シークレット/認可の欠落)に
   該当したら止まる |
+| /adopt-template | 既にCLAUDE.md/rules/skillsを持つ既存プロジェクトへ、この一式を非破壊で移植する。
+  コピー先に存在するものは一切上書きせず、存在しない機能だけを補う |
 
 ## テンプレートバージョン
 
 - テンプレートID: ai-driven-dev-template
-- version: 2.5.0(ユニット追加ごとに更新する。開発者からの直接指示により、根拠のない試行的実装の開示
+- version: 2.6.0(ユニット追加ごとに更新する。開発者からの直接指示により、根拠のない試行的実装の開示
   (ai-output-verification-guard)、リトライループでのエラー回避禁止・実装後の静的/境界値テスト必須化
   (implementation-guard)、Gitブランチ戦略(git-workflow.md)を追加。以降、随時コードレビューを担う
   code-review-guardを追加し、system-overview-guardをdesign-doc-guardへ改称・拡張して鳥瞰図設計書・
@@ -71,5 +73,6 @@
   cc-sdd(gotalab/cc-sdd)の考え方を参考に、鳥瞰図設計書をBIRDSEYE_DESIGN.md単一ファイルから
   PRODUCT.md/TECH.md/STRUCTURE.mdの3ファイル構成へ再編し、コンポーネント仕様書にEARS形式の
   受け入れ条件を追加し、システム単位設計書のコンポーネント表に依存関係・並列実装可否列を追加し、
-  /goalのレビュー工程を実装者と分離した独立サブエージェント実行に変更した)
+  /goalのレビュー工程を実装者と分離した独立サブエージェント実行に変更した。以降、既存プロジェクトへの
+  非破壊移植を担う/adopt-templateコマンドを追加した)
 - 元テンプレート更新の追従は手動。差分確認が必要な場合はversion行を比較する。
