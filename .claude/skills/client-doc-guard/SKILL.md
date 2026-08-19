@@ -33,6 +33,6 @@ description: 開発者以外(顧客・非エンジニアの関係者)向けに�
 「どのような考えで開発しているか」を顧客に説明する資料は、標準フォーマット(2)ではなく
 `CLIENT_TRUST_OVERVIEW_TEMPLATE.md`をコピーした`CLIENT_TRUST_OVERVIEW.md`を使う。
 
-- `docs/BIRDSEYE_DESIGN.md`「5. 開発方針」表で有効なユニットの節だけを残し、無効なユニットの節は削除する
+- `docs/TECH.md`「5. 開発方針」表で有効なユニットの節だけを残し、無効なユニットの節は削除する
 - 内容が実装と乖離していないか、`design-doc-guard`の更新タイミングに合わせて見直す
 
