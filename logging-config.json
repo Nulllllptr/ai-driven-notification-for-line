@@ -1,0 +1,5 @@
+{
+  "default_level": "INFO",
+  "retention_days": null,
+  "mask_fields": ["token", "authorization", "channel_access_token", "api_key"]
+}
