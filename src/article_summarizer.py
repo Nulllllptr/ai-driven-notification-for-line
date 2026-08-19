@@ -40,7 +40,6 @@ ARTICLE_SELECTION_TOOL = {
         "properties": {
             "articles": {
                 "type": "array",
-                "maxItems": MAX_ARTICLES,
                 "items": {
                     "type": "object",
                     "properties": {
@@ -138,6 +137,12 @@ def generate_articles(
     for article in articles:
         if article.get("url") not in known_urls:
             raise SummarizationError(f"returned article url not among candidates: {article!r}")
+
+    if len(articles) > MAX_ARTICLES:
+        # tool schemaではmaxItemsが未対応(Anthropic APIの制約)のため、件数上限は
+        # システムプロンプトの指示に加えてここでも強制する。
+        logger.warning("Claude returned %d articles, truncating to %d", len(articles), MAX_ARTICLES)
+        articles = articles[:MAX_ARTICLES]
 
     logger.info(
         "generated %d articles from %d fetchable candidates", len(articles), len(candidates_with_bodies)

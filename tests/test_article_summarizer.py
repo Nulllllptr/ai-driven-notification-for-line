@@ -174,6 +174,21 @@ def test_ac5_tool_use_missing_articles_key_raises_error():
             az.generate_articles([candidate], client=client)
 
 
+def test_more_than_max_articles_is_truncated():
+    """toolスキーマにmaxItemsを使えない(Anthropic API制約)ため、コード側で上限を強制する。"""
+    candidates = [_candidate(url=f"https://example.com/{i}") for i in range(4)]
+    articles = [
+        {"title": f"T{i}", "summary": "S", "url": c.url, "source": c.source}
+        for i, c in enumerate(candidates)
+    ]
+    client = _mock_client(_tool_use_response(articles))
+    with patch.object(az.requests, "get", return_value=_mock_page_response()), \
+         patch.object(az.trafilatura, "extract", return_value="本文"):
+        result = az.generate_articles(candidates, client=client)
+    assert len(result) == az.MAX_ARTICLES
+    assert result == articles[: az.MAX_ARTICLES]
+
+
 def test_ac6_unknown_url_in_response_raises_error():
     candidate = _candidate()
     articles = [{"title": "T", "summary": "S", "url": "https://not-a-candidate.example.com/x", "source": "出典"}]
