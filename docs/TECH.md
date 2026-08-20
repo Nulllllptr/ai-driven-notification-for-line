@@ -1,7 +1,8 @@
 # 技術スタック・開発方針
 
 ## 1. インフラ構成
-- 実行基盤: GitHub Actions の scheduled workflow(cron)。毎日9:00 JST(=0:00 UTC)に起動
+- 実行基盤: GitHub Actions の scheduled workflow(cron)。毎日9:05 JST(=0:05 UTC)頃に起動
+  (毎時00分ちょうどはGitHub Actions全体で混雑し遅延・スキップされやすいため、5分ずらしている)
 - リポジトリ: 本リポジトリ(public/privateは未確認。privateの場合はActions無料枠が
   月2000分に制限されるが、1日1回の軽量ジョブであれば十分収まる見込み)
 - 外部API連携:
@@ -22,7 +23,7 @@
 - 依存インストール: `pip install -r requirements-dev.txt`
 - テスト実行: `python -m pytest tests/`
 - 本番実行: `python -m src.orchestrator`(GitHub Actionsの`.github/workflows/daily-news.yml`が
-  毎日9:00 JSTに自動実行。`workflow_dispatch`で手動実行も可能)
+  毎日9:05 JST頃に自動実行。`workflow_dispatch`で手動実行も可能)
 
 ## 4. 環境変数
 GitHub Secretsに登録し、値そのものはここに書かない(secrets-lifecycle-guardの対象)。

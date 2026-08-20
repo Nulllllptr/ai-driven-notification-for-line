@@ -9,7 +9,7 @@
 ├── .vscode/             # エディタ設定
 ├── .github/
 │   └── workflows/
-│       └── daily-news.yml  # 毎日9:00 JSTにsrc.orchestratorを起動するscheduled workflow
+│       └── daily-news.yml  # 毎日9:05 JST頃にsrc.orchestratorを起動するscheduled workflow
 ├── docs/                # 設計書一式(鳥瞰図 + システムフォルダ)
 ├── src/
 │   ├── common/
