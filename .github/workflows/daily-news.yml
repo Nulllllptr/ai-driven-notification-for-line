@@ -3,7 +3,7 @@ name: Daily AI-Driven Development News
 
 on:
   schedule:
-    - cron: "5 0 * * *" # 毎日 0:05 UTC = 9:05 JST(GitHub Actionsの毎時00分の混雑を避ける)
+    - cron: "55 0 * * *" # 【一時テスト用】scheduled workflowが実際に発火するか確認後、9:05 JSTへ戻す
   workflow_dispatch: {}
 
 permissions:
