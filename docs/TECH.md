@@ -1,10 +1,15 @@
 # 技術スタック・開発方針
 
 ## 1. インフラ構成
-- 実行基盤: GitHub Actions の scheduled workflow(cron)。毎日9:05 JST(=0:05 UTC)頃に起動
-  (毎時00分ちょうどはGitHub Actions全体で混雑し遅延・スキップされやすいため、5分ずらしている)
-- リポジトリ: 本リポジトリ(public/privateは未確認。privateの場合はActions無料枠が
-  月2000分に制限されるが、1日1回の軽量ジョブであれば十分収まる見込み)
+- 実行基盤: GitHub Actions(`.github/workflows/daily-news.yml`、`workflow_dispatch`トリガーのみ)。
+  起動そのものは外部の無料cronサービス**cron-job.org**が毎日9:05 JSTにGitHub REST APIの
+  workflow dispatchエンドポイントを呼ぶことで行う。GitHub Actions native の`schedule`(cron)
+  トリガーは実運用で一度も発火しないことが確認されたため不採用とした(GitHub側の既知の信頼性
+  問題、105の仕様書「改訂履歴」参照)
+- リポジトリ: 本リポジトリ(public)。public repoはGitHub Actionsの実行時間が無料枠無制限
+- cron-job.org呼び出し用のGitHub Fine-grained Personal Access Token(`Actions: Read and write`
+  権限、このリポジトリのみに限定)を発行し、cron-job.org側にのみ登録する。このトークンは
+  本リポジトリのGitHub Secretsには含めない(リポジトリ内のコードからは使わないため)
 - 外部API連携:
   - LINE Messaging API(プッシュメッセージ送信。月200通まで無料)
   - Anthropic API(Claude、記事要約・重複判定用途。従量課金、月数百円程度を許容する方針)
@@ -22,8 +27,8 @@
 ## 3. ビルド・実行コマンド
 - 依存インストール: `pip install -r requirements-dev.txt`
 - テスト実行: `python -m pytest tests/`
-- 本番実行: `python -m src.orchestrator`(GitHub Actionsの`.github/workflows/daily-news.yml`が
-  毎日9:05 JST頃に自動実行。`workflow_dispatch`で手動実行も可能)
+- 本番実行: `python -m src.orchestrator`(GitHub Actionsの`.github/workflows/daily-news.yml`を
+  cron-job.orgが毎日9:05 JSTに`workflow_dispatch`で起動。Actionsタブから手動実行も可能)
 
 ## 4. 環境変数
 GitHub Secretsに登録し、値そのものはここに書かない(secrets-lifecycle-guardの対象)。

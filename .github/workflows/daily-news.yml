@@ -1,9 +1,11 @@
 name: Daily AI-Driven Development News
-# Actionsへの再インデックスを促すための無害な更新
 
+# 起動はGitHub Actionsのnative schedule(cron)ではなく、外部cronサービス(cron-job.org)から
+# GitHub REST APIのworkflow dispatchエンドポイントを毎日9:05 JSTに叫く方式で行う。
+# scheduleトリガーは検証の結果このリポジトリで機能しなかった(GitHub側の既知の信頼性問題、
+# 同一症状の報告: https://github.com/orgs/community/discussions/202034 )ため、
+# workflow_dispatchのみを残す(将来schedule側が復旧した場合の二重発火を避けるため)。
 on:
-  schedule:
-    - cron: "5 0 * * *" # 毎日 0:05 UTC = 9:05 JST(GitHub Actionsの毎時00分の混雑を避ける)
   workflow_dispatch: {}
 
 permissions:
